@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  OpenIdConnectAuthGuard,
-  OpenIdConnectAuthModule,
-} from 'features/auth/open-id-connect-auth';
+import { AuthGuard } from 'app/adapters/auth/common/auth.guard';
 
 const routes: Routes = [
   {
     path: 'chat',
     loadChildren: () =>
-      import('pages/chat/chat.module').then((m) => m.ChatModule),
-    canActivate: [OpenIdConnectAuthGuard],
+      import('app/adapters/chat-page/chat-page.module').then(
+        (m) => m.ChatPageModule
+      ),
+    canActivate: [AuthGuard],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), OpenIdConnectAuthModule],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

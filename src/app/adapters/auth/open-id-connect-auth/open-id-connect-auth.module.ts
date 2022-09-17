@@ -1,8 +1,10 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { AuthGuard } from 'entities/auth/auth.guard';
+import { AuthGuard } from 'app/adapters/auth/common/auth.guard';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { AuthService } from '../common/auth.service';
 import { keycloakConfigurationFactory } from './keycloak-configuration.factory';
 import { OpenIdConnectAuthGuard } from './open-id-connect-auth.guard';
+import { OpenIdConnectAuthService } from './open-id-connect-auth.service';
 
 @NgModule({
   declarations: [],
@@ -17,6 +19,10 @@ import { OpenIdConnectAuthGuard } from './open-id-connect-auth.guard';
     {
       provide: AuthGuard,
       useClass: OpenIdConnectAuthGuard,
+    },
+    {
+      provide: AuthService,
+      useClass: OpenIdConnectAuthService,
     },
   ],
 })

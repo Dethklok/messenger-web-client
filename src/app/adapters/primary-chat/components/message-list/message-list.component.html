@@ -1,0 +1,4 @@
+<p>message-list works!</p>
+<ul *ngFor="let message of getMessages() | async">
+  <li>{{message.content}}</li>
+</ul>
