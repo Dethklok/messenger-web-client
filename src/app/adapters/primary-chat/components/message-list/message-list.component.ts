@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveMessageStore } from 'app/adapters/primary-chat/reactive-message.store';
-import { LoadMessagesToStoreUseCase } from 'app/core/application/useCase/LoadMessagesToStoreUseCase';
+import { LoadMessagesToStoreUseCase } from 'app/core/application/message/useCase/LoadMessagesToStoreUseCase';
 
 @Component({
   selector: 'app-message-list',

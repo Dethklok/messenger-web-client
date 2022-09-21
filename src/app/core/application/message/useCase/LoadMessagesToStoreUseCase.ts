@@ -1,7 +1,7 @@
-import { MessageStore } from 'app/core/application/port/MessageStore';
-import { AsyncUseCase } from 'app/core/application/useCase/AsyncUseCase';
+import { MessageStore } from 'app/core/application/message/port/MessageStore';
+import { AsyncUseCase } from 'app/core/application/common/AsyncUseCase';
 import { CollectionMapper } from 'app/core/kernel/CollectionMapper';
-import { MessageRepository } from '../port/MessageRepository';
+import { MessageRepository } from 'app/core/application/message/port/MessageRepository';
 
 export class LoadMessagesToStoreUseCase implements AsyncUseCase<void> {
   constructor(

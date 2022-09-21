@@ -9,7 +9,8 @@ export const environment = {
     realm: 'pegasus',
     clientId: 'pegasus-messenger-web-client',
   },
-  serverUri: 'http://localhost:8082/api',
+  serverApiUri: 'http://localhost:8082/api',
+  serverWebsocketUri: 'ws://localhost:8082/wss-main',
 };
 
 /*

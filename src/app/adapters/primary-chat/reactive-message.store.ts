@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MessageStore } from 'app/core/application/port/MessageStore';
+import { MessageStore } from 'app/core/application/message/port/MessageStore';
 import { Message } from 'app/core/domain/message';
 import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
 
