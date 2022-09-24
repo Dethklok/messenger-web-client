@@ -8,9 +8,7 @@ import { Message } from 'app/core/domain/message';
 export class ServerMessageSocket implements MessageSocket {
   private readonly DESTINATION = '/message';
 
-  constructor(private readonly websocketService: WebsocketService) {
-    console.log(websocketService);
-  }
+  constructor(private readonly websocketService: WebsocketService) {}
 
   publish(message: SaveMessageDto) {
     this.websocketService.publish({
@@ -20,6 +18,8 @@ export class ServerMessageSocket implements MessageSocket {
   }
 
   subscribe(onReceive: (message: Message) => void) {
-    this.websocketService.subscribe({ destination: this.DESTINATION });
+    this.websocketService
+      .watch<Message>({ destination: this.DESTINATION })
+      .subscribe(onReceive);
   }
 }

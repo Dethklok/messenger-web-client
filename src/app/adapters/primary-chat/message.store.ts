@@ -1,5 +1,6 @@
 import { Message } from 'app/core/domain/message';
+import { Observable } from 'rxjs';
 
 export abstract class MessageStore {
-  abstract saveAll(messagesById: Map<number, Message>): void;
+  abstract findAll(): Observable<Message[]>;
 }

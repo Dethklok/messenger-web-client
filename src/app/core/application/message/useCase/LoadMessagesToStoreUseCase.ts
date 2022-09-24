@@ -1,17 +1,18 @@
-import { MessageStore } from 'app/core/application/message/port/MessageStore';
 import { AsyncUseCase } from 'app/core/application/common/AsyncUseCase';
+import { FindAllMessagesOutputPort } from 'app/core/application/message/port/FindAllMessagesOutputPort';
+import { SaveAllMessagesOutputPort } from 'app/core/application/message/port/SaveAllMessagesOutputPort';
 import { CollectionMapper } from 'app/core/kernel/CollectionMapper';
-import { MessageRepository } from 'app/core/application/message/port/MessageRepository';
 
 export class LoadMessagesToStoreUseCase implements AsyncUseCase<void> {
   constructor(
-    private readonly messageRepository: MessageRepository,
-    private readonly messageStore: MessageStore
+    private readonly messageRepository: FindAllMessagesOutputPort,
+    private readonly saveAllMessagesPort: SaveAllMessagesOutputPort
   ) {}
 
   async execute(): Promise<void> {
     const messages = await this.messageRepository.findAll();
-    this.messageStore.saveAll(
+
+    this.saveAllMessagesPort.saveAll(
       CollectionMapper.mapArrayToMap(messages, ({ id }) => id)
     );
   }

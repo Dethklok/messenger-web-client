@@ -24,10 +24,10 @@ export class RxStompWebsocketService implements WebsocketService, OnDestroy {
     });
   }
 
-  subscribe<Body>({ destination }: { destination: string }) {
+  watch<Body>({ destination }: { destination: string }) {
     return this.rxStomp
       .watch(`${this.BROKER_PREFIX}${destination}`)
-      .pipe(map(({ body }) => JSON.parse(body)));
+      .pipe<Body>(map(({ body }) => JSON.parse(body)));
   }
 
   async ngOnDestroy() {
@@ -44,9 +44,12 @@ export class RxStompWebsocketService implements WebsocketService, OnDestroy {
         ? (message: string) => console.log(new Date(), message)
         : undefined,
       beforeConnect: async (client) => {
-        const token = await firstValueFrom(this.authService.getToken());
+        const { name, value } = await firstValueFrom(
+          this.authService.getAuthHeader()
+        );
+
         client.stompClient.connectHeaders = {
-          Authorization: `Bearer ${token}`,
+          [name]: value,
         };
       },
     };

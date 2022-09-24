@@ -16,10 +16,10 @@ export class HttpAuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    return this.authService.getToken().pipe(
-      map((token) =>
+    return this.authService.getAuthHeader().pipe(
+      map(({ name, value }) =>
         request.clone({
-          headers: request.headers.set('Authorization', `Bearer ${token}`),
+          headers: request.headers.set(name, value),
         })
       ),
       map((requestWithAuthHeader) => next.handle(requestWithAuthHeader)),

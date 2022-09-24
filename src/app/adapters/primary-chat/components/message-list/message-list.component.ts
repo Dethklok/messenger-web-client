@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ReactiveMessageStore } from 'app/adapters/primary-chat/reactive-message.store';
+import { MessageStore } from 'app/adapters/primary-chat/message.store';
 import { LoadMessagesToStoreUseCase } from 'app/core/application/message/useCase/LoadMessagesToStoreUseCase';
+import { SubscribeMessagesUseCase } from 'app/core/application/message/useCase/SubscribeMessagesUseCase';
 
 @Component({
   selector: 'app-message-list',
@@ -9,12 +10,14 @@ import { LoadMessagesToStoreUseCase } from 'app/core/application/message/useCase
 })
 export class MessageListComponent implements OnInit {
   constructor(
-    private readonly messageStore: ReactiveMessageStore,
-    private readonly loadMessagesToStoreUseCase: LoadMessagesToStoreUseCase
+    private readonly messageStore: MessageStore,
+    private readonly loadMessagesToStoreUseCase: LoadMessagesToStoreUseCase,
+    private readonly subscribeMessagesUseCase: SubscribeMessagesUseCase
   ) {}
 
-  ngOnInit(): void {
-    this.loadMessagesToStoreUseCase.execute();
+  async ngOnInit(): Promise<void> {
+    await this.loadMessagesToStoreUseCase.execute();
+    this.subscribeMessagesUseCase.execute();
   }
 
   getMessages() {

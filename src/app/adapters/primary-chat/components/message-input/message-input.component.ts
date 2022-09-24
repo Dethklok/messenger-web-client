@@ -23,5 +23,6 @@ export class MessageInputComponent implements OnInit {
 
   sendMessage() {
     this.sendMessageUseCase.execute(this.form.getRawValue());
+    this.form.reset();
   }
 }
