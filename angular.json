@@ -26,7 +26,11 @@
               "src/styles.css"
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": ["base64-js", "js-sha256", "angular2-uuid"]
+            "allowedCommonJsDependencies": [
+              "base64-js",
+              "js-sha256",
+              "angular2-uuid"
+            ]
           },
           "configurations": {
             "production": {
@@ -112,5 +116,13 @@
     "schematicCollections": [
       "@angular-eslint/schematics"
     ]
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }
