@@ -1,0 +1,6 @@
+<div class="primary-chat__content">
+  <div class="primary-chat__message-box">
+    <app-message-list [messages]="(getMessages() | async) ?? []"></app-message-list>
+  </div>
+  <app-message-input></app-message-input>
+</div>

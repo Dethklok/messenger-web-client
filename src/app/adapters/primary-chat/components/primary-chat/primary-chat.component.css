@@ -1,0 +1,9 @@
+.primary-chat__content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.primary-chat__message-box {
+  flex-grow: 1;
+}

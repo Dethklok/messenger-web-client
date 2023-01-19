@@ -16,9 +16,14 @@ import { SubscribeMessagesUseCase } from 'app/core/application/message/useCase/S
 import { MessageInputComponent } from './components/message-input/message-input.component';
 import { MessageListComponent } from './components/message-list/message-list.component';
 import { ServerMessageRepository } from './server-message.repository';
+import { PrimaryChatComponent } from './components/primary-chat/primary-chat.component';
 
 @NgModule({
-  declarations: [MessageListComponent, MessageInputComponent],
+  declarations: [
+    MessageListComponent,
+    MessageInputComponent,
+    PrimaryChatComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -72,6 +77,6 @@ import { ServerMessageRepository } from './server-message.repository';
       ) => new SubscribeMessagesUseCase(messageSocket, saveMessagePort),
     },
   ],
-  exports: [MessageListComponent],
+  exports: [MessageListComponent, PrimaryChatComponent],
 })
 export class PrimaryChatModule {}

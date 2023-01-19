@@ -1,5 +1,8 @@
-<p>message-list works!</p>
-<ul *ngFor="let message of getMessages() | async">
-  <li>{{message.content}}</li>
+<ul class="message-list">
+  <li *ngFor="let message of messages; trackBy: trackByMessages">
+    <div class="message">
+      <span class="message__datetime">{{message.updatedAt}}</span>
+      <p class="message__content">{{message.content}}</p>
+    </div>
+  </li>
 </ul>
-<app-message-input></app-message-input>
