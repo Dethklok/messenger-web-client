@@ -1,6 +1,12 @@
-<div class="primary-chat__content">
-  <div class="primary-chat__message-box">
-    <app-message-list [messages]="(getMessages() | async) ?? []"></app-message-list>
-  </div>
-  <app-message-input></app-message-input>
-</div>
+<app-flex direction="vertical">
+  <app-flex-item [growable]="true">
+    <app-infinite-scrollable-list [dataSource]="getMessageDataSource()" [renderItem]="messageView"/>
+  </app-flex-item>
+  <app-flex-item>
+    <app-message-input [onSubmit]="sendMessage" />
+  </app-flex-item>
+</app-flex>
+
+<ng-template #messageView let-message>
+  <app-message [message]="message"/>
+</ng-template>

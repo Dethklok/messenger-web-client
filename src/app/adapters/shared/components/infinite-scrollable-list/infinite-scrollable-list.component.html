@@ -1,0 +1,7 @@
+<ul *ngIf="ngxUiScrollDataSource" class="infinite-scroll-container" #viewport>
+  <li *uiScroll="let item of ngxUiScrollDataSource; let index = index">
+    <ng-template
+      [ngTemplateOutlet]="renderItem"
+      [ngTemplateOutletContext]="{ $implicit: item, index: index }"/>
+  </li>
+</ul>

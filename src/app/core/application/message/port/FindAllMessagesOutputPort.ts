@@ -1,5 +1,5 @@
-import { Message } from 'app/core/domain/message';
+import { MessageDto } from '../dto/MessageDto';
 
 export abstract class FindAllMessagesOutputPort {
-  abstract findAll(): Promise<Message[]>;
+  abstract findAll(): Promise<MessageDto[]>;
 }

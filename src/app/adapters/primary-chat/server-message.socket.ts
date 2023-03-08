@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { WebsocketService } from 'app/adapters/server-messaging';
 import { SaveMessageDto } from 'app/core/application/message/dto/SaveMessageDto';
 import { MessageSocket } from 'app/core/application/message/port/MessageSocket';
-import { Message } from 'app/core/domain/message';
+import { MessageDto } from '../../core/application/message/dto/MessageDto';
 
 @Injectable()
 export class ServerMessageSocket implements MessageSocket {
@@ -17,9 +17,9 @@ export class ServerMessageSocket implements MessageSocket {
     });
   }
 
-  subscribe(onReceive: (message: Message) => void) {
+  subscribe(onReceive: (message: MessageDto) => void) {
     this.websocketService
-      .watch<Message>({ destination: this.DESTINATION })
+      .watch<MessageDto>({ destination: this.DESTINATION })
       .subscribe(onReceive);
   }
 }

@@ -1,0 +1,6 @@
+<nz-comment [nzAuthor]="message.user.getFullName()" [nzDatetime]="message.createdAt.toISOString()">
+  <nz-avatar nz-comment-avatar [nzSrc]="message.user.avatarSrc" nzIcon="user" />
+  <nz-comment-content>
+    <p>{{ message.content }}</p>
+  </nz-comment-content>
+</nz-comment>

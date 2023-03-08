@@ -1,0 +1,6 @@
+<form [formGroup]="form" (ngSubmit)="onMessageSubmit()">
+  <textarea class="message-input" nz-input formControlName="content" [nzAutosize]="{minRows: 1, maxRows: 8}"></textarea>
+  <button nz-button type="submit" nzType="text">
+    <span nz-icon nzType="send" nzTheme="twotone"></span>
+  </button>
+</form>

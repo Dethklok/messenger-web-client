@@ -1,0 +1,5 @@
+:host(.flex-item_grow) {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+}
