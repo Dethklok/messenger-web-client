@@ -1,3 +1,6 @@
+@import "../node_modules/ng-zorro-antd/ng-zorro-antd.min.css";
+@import "../node_modules/ng-zorro-antd/ng-zorro-antd.variable.min.css";
+
 /* You can add global styles to this file, and also import other style files */
 body, form, h1, ol, p, ul {
   margin: 0;
@@ -10,3 +13,17 @@ ol, ul {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--ant-primary-color);
+  border-radius: 20px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ant-primary-color) transparent;
+}

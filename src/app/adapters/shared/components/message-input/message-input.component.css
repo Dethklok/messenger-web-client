@@ -1,8 +1,15 @@
-/*@import "~@ant-design/colors";*/
-
 .message-input {
-  resize: none;
+  position: relative;
 }
 
-.button {
+.message-input__textarea {
+  resize: none;
+  padding-right: 40px;
+}
+
+.message-input__send-button {
+  color: var(--ant-primary-color);
+  position: absolute;
+  bottom: 0;
+  right: 5px;
 }

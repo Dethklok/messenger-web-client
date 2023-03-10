@@ -3,7 +3,7 @@
     <app-infinite-scrollable-list [dataSource]="getMessageDataSource()" [renderItem]="messageView"/>
   </app-flex-item>
   <app-flex-item>
-    <app-message-input [onSubmit]="sendMessage" />
+    <app-message-input (sendMessage)="sendMessage($event)" />
   </app-flex-item>
 </app-flex>
 
