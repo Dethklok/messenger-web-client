@@ -1,6 +1,6 @@
-import { Message } from '../../domain/message.entity';
-import { User } from '../../domain/user.entity';
-import { MessageDto } from './dto/MessageDto';
+import { Message } from '../../messaging/domain/Message';
+import { User } from '../../messaging/domain/User';
+import { MessageDto } from '../../messaging/dto/MessageDto';
 
 export class MessageFactory {
   fromDto({ id, content, createdAt, updatedAt, user }: MessageDto): Message {

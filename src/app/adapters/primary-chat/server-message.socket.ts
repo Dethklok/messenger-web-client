@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { WebsocketService } from 'app/adapters/server-messaging';
-import { SaveMessageDto } from 'app/core/application/message/dto/SaveMessageDto';
-import { MessageSocket } from 'app/core/application/message/port/MessageSocket';
-import { MessageDto } from '../../core/application/message/dto/MessageDto';
+import { SaveMessageDto } from 'app/core/messaging/dto/SaveMessageDto';
+import { PublishToMessageSocketOutputPort } from 'app/core/messaging/port/out/PublishToMessageSocketOutputPort';
+import { MessageDto } from '../../core/messaging/dto/MessageDto';
 
 @Injectable()
-export class ServerMessageSocket implements MessageSocket {
+export class ServerMessageSocket implements PublishToMessageSocketOutputPort {
   private readonly DESTINATION = '/message';
 
   constructor(private readonly websocketService: WebsocketService) {}

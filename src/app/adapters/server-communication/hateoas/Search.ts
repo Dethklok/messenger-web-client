@@ -1,5 +1,5 @@
-export type Search = {
+export type Search<T, K extends keyof T = keyof T> = {
   rel: string;
-  key: string;
-  value: string;
+  key: K;
+  value: string | number;
 };

@@ -1,8 +1,8 @@
 import { Search } from './Search';
 import { Sort } from './Sort';
 
-export type HateoasFindParams = {
+export type HateoasFindParams<T> = {
   page?: number;
-  sort?: Sort;
-  search?: Search;
+  sort?: Sort<T>;
+  search?: Search<T>;
 };

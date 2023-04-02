@@ -1,4 +1,4 @@
-import { User } from './user.entity';
+import { User } from './User';
 
 export class Message {
   constructor(

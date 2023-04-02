@@ -7,10 +7,9 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { StreamingCacheableDataSource } from 'app/core/messaging/domain/StreamingCacheableDataSource';
 import { Datasource, IDatasource } from 'ngx-ui-scroll';
-import { Subject, takeUntil } from 'rxjs';
-import { InfiniteScrollableListDataSource } from './InfiniteScrollableListDataSource';
-import { InfiniteScrollableListDataSourceOptions } from './InfiniteScrollableListDataSourceOptions';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-infinite-scrollable-list',
@@ -18,7 +17,7 @@ import { InfiniteScrollableListDataSourceOptions } from './InfiniteScrollableLis
   styleUrls: ['./infinite-scrollable-list.component.css'],
 })
 export class InfiniteScrollableListComponent<T> implements OnInit, OnDestroy {
-  @Input() dataSource!: InfiniteScrollableListDataSource<T>;
+  @Input() dataSource!: StreamingCacheableDataSource<T>;
   @Input() renderItem!: TemplateRef<{ $implicit: T; index: number }>;
 
   @ViewChild('viewport', { read: ElementRef })
@@ -28,19 +27,17 @@ export class InfiniteScrollableListComponent<T> implements OnInit, OnDestroy {
   ngxUiScrollDataSource?: IDatasource<T>;
 
   ngOnInit(): void {
-    this.dataSource.initialize().subscribe((options) => {
-      this.configureNgxUiScrollDataSource(options);
+    this.configureNgxUiScrollDataSource();
 
-      this.ngxUiScrollDataSource?.adapter?.init$.subscribe(() => {
-        this.initResizeObserver();
-        // We should subscribe to lastVisible element to make adapter.lastVisible.index$ available
-        this.ngxUiScrollDataSource?.adapter?.lastVisible$.subscribe(() => {});
-      });
-
-      this.dataSource.onPush$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((items) => this.processNewItems(items));
+    this.ngxUiScrollDataSource?.adapter?.init$.subscribe(() => {
+      this.initResizeObserver();
+      // We should subscribe to lastVisible element to make adapter.lastVisible.index$ available
+      this.ngxUiScrollDataSource?.adapter?.lastVisible$.subscribe(() => {});
     });
+
+    this.dataSource.newValueOutputStream.subscribe((item) =>
+      this.processNewItem(item)
+    );
   }
 
   ngOnDestroy(): void {
@@ -48,16 +45,13 @@ export class InfiniteScrollableListComponent<T> implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private configureNgxUiScrollDataSource({
-    startIndex,
-    inverse,
-  }: InfiniteScrollableListDataSourceOptions) {
+  private configureNgxUiScrollDataSource() {
     this.ngxUiScrollDataSource = new Datasource({
       get: (index: number, count: number) =>
-        this.dataSource.loadItems(index, count),
+        this.dataSource.getItems(index, count),
       settings: {
-        startIndex,
-        inverse,
+        startIndex: this.dataSource.lastIndex,
+        inverse: true,
       },
       devSettings: {
         debug: false,
@@ -65,8 +59,8 @@ export class InfiniteScrollableListComponent<T> implements OnInit, OnDestroy {
     });
   }
 
-  private processNewItems(items: T[]) {
-    this.ngxUiScrollDataSource?.adapter?.append({ items, eof: true });
+  private processNewItem(item: T) {
+    this.ngxUiScrollDataSource?.adapter?.append({ items: [item], eof: true });
     if (
       this.ngxUiScrollDataSource?.adapter?.lastVisible.$index ===
       this.dataSource.lastIndex - 1

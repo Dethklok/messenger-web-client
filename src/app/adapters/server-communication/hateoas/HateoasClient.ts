@@ -4,7 +4,7 @@ import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { HateoasFindParams } from './HateoasFindParams';
 import { HateoasFindResponse } from './HateoasFindResponse';
-import { ResourceCollection } from './ResourceCollection';
+import { HateoasResourceCollection } from './HateoasResourceCollection';
 import { Search } from './Search';
 import { UrlUtils } from './UrlUtils';
 
@@ -14,33 +14,40 @@ export class HateoasClient {
 
   constructor(private http: HttpClient) {}
 
-  findAll<T>(resourceName: string, params?: HateoasFindParams) {
+  findAll<T extends object>(
+    resourceName: string,
+    params?: HateoasFindParams<T>
+  ) {
     return this.http
       .get<HateoasFindResponse<T>>(
         this.createFindAllUrl(resourceName, params?.search),
         {
-          params: params ? this.createFindAllParams(params) : undefined,
+          params: params ? this.createFindAllParams<T>(params) : undefined,
         }
       )
       .pipe(
         map(
           (response) =>
-            new ResourceCollection<T>(resourceName, response, this.http)
+            new HateoasResourceCollection<T>(resourceName, response, this.http)
         )
       );
   }
 
-  private createFindAllParams({ page, sort, search }: HateoasFindParams) {
+  private createFindAllParams<T extends object>({
+    page,
+    sort,
+    search,
+  }: HateoasFindParams<T>) {
     let params = new HttpParams({ fromObject: { size: 5 } });
 
     if (page) params = params.set('page', page);
     if (sort) params = params.set('sort', UrlUtils.createSortParams(sort));
-    if (search) params = params.set(search.key, search.value);
+    if (search) params = params.set(search.key.toString(), search.value);
 
     return params;
   }
 
-  private createFindAllUrl(resourceName: string, search?: Search) {
+  private createFindAllUrl<T>(resourceName: string, search?: Search<T>) {
     const url = `${this.serverApiUri}/${resourceName}`;
 
     if (search) {

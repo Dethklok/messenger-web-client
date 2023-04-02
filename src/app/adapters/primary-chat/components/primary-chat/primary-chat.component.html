@@ -1,9 +1,11 @@
 <app-flex direction="vertical">
   <app-flex-item [growable]="true">
-    <app-infinite-scrollable-list [dataSource]="getMessageDataSource()" [renderItem]="messageView"/>
+    <ng-template [ngIf]="dataSource !== null">
+      <app-infinite-scrollable-list [dataSource]="dataSource" [renderItem]="messageView"/>
+    </ng-template>
   </app-flex-item>
   <app-flex-item>
-    <app-message-input (sendMessage)="sendMessage($event)" />
+    <app-message-input (sendMessage)="sendMessage($event)"/>
   </app-flex-item>
 </app-flex>
 

@@ -1,4 +1,4 @@
-import { Page } from './Page';
+import { PageMeta } from '../../../core/kernel/resourceCollection/PageMeta';
 
 type Link = {
   href: string;
@@ -14,5 +14,5 @@ export type HateoasFindResponse<Entity> = {
     prev?: Link;
     next?: Link;
   };
-  page: Page;
+  page: PageMeta;
 };

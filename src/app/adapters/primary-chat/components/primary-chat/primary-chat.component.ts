@@ -1,23 +1,32 @@
-import { Component } from '@angular/core';
-import { SaveMessageDto } from '../../../../core/application/message/dto/SaveMessageDto';
-import { SendMessageUseCase } from '../../../../core/application/message/useCase/SendMessageUseCase';
-import { MessageDataSource } from '../../message.data-source';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Message } from '../../../../core/messaging/domain/Message';
+import { StreamingCacheableDataSource } from '../../../../core/messaging/domain/StreamingCacheableDataSource';
+import { SaveMessageDto } from '../../../../core/messaging/dto/SaveMessageDto';
+import { CreateMessageDataSourceInputPort } from '../../../../core/messaging/port/in/CreateMessageDataSourceInputPort';
+import { SendMessageInputPort } from '../../../../core/messaging/port/in/SendMessageInputPort';
+import { SubscribableRxAdapter } from '../../SubscribableRxAdapter';
 
 @Component({
   selector: 'app-primary-chat',
   templateUrl: './primary-chat.component.html',
 })
-export class PrimaryChatComponent {
+export class PrimaryChatComponent implements OnInit {
+  dataSource: StreamingCacheableDataSource<Message> | null = null;
+
   constructor(
-    private readonly messageDataSource: MessageDataSource,
-    private readonly sendMessageUseCase: SendMessageUseCase
+    private readonly sendMessageInputPort: SendMessageInputPort,
+    private readonly createMessageDataSourceInputPort: CreateMessageDataSourceInputPort
   ) {}
 
-  getMessageDataSource() {
-    return this.messageDataSource;
+  async ngOnInit() {
+    this.dataSource = await this.createMessageDataSourceInputPort.execute(
+      new SubscribableRxAdapter(new Subject()),
+      new Subject()
+    );
   }
 
   sendMessage(value: SaveMessageDto) {
-    this.sendMessageUseCase.execute(value);
+    this.sendMessageInputPort.execute(value);
   }
 }
