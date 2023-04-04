@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from 'app/adapters/auth/common/auth.guard';
+import { AuthGuard } from 'app/auth/common/auth.guard';
 
 const routes: Routes = [
   {
     path: 'chat',
     loadChildren: () =>
-      import('app/adapters/chat-page/chat-page.module').then(
-        (m) => m.ChatPageModule
-      ),
+      import('app/page/chat/chat.module').then((m) => m.ChatModule),
     canActivate: [AuthGuard],
   },
 ];

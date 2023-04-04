@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { OpenIdConnectAuthModule } from 'app/adapters/auth/open-id-connect-auth';
+import { OpenIdConnectAuthModule } from 'app/auth/open-id-connect-auth';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 
 import { AppRoutingModule } from './app-routing.module';
