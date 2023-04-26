@@ -1,5 +1,9 @@
-export type Search<T, K extends keyof T = keyof T> = {
-  rel: string;
-  key: K;
-  value: string | number;
-};
+export type Search<T> = T extends { [K in infer U]: any }
+  ? U extends keyof T
+    ? {
+        key: U;
+        value: T[U];
+        rel: string;
+      }
+    : never
+  : never;

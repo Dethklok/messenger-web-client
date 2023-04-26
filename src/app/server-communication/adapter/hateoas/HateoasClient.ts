@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { map } from 'rxjs';
-import { environment } from '../../../../environments/environment';
 import { HateoasFindParams } from './HateoasFindParams';
 import { HateoasFindResponse } from './HateoasFindResponse';
 import { HateoasResourceCollection } from './HateoasResourceCollection';
