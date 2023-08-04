@@ -1,4 +1,4 @@
-<app-flex direction="vertical">
+<app-flex [block]="true" direction="vertical">
   <app-flex-item [growable]="true">
     <ng-template [ngIf]="dataSource !== null">
       <app-infinite-scrollable-list [dataSource]="dataSource" [renderItem]="messageView"/>

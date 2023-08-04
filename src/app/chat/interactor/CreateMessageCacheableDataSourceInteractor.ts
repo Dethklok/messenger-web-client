@@ -36,18 +36,21 @@ export class CreateMessageCacheableDataSourceInteractor
     );
 
     const latestMessages = latestMessagesCollection.getResources();
-    const earliestDate = latestMessages[latestMessages.length - 1].createdAt;
+    const earliestDate =
+      latestMessages[latestMessages.length - 1]?.createdAt ?? undefined;
 
-    const getNextCollection = async () => {
-      const collection =
-        await this.findLatestMessagesOutputPort.findMessagesBeforeDate(
-          earliestDate
-        );
-      return this.resourceCollectionFactory.createWithMapper(
-        collection,
-        messageMapper
-      );
-    };
+    const getNextCollection = earliestDate
+      ? async () => {
+          const collection =
+            await this.findLatestMessagesOutputPort.findMessagesBeforeDate(
+              earliestDate
+            );
+          return this.resourceCollectionFactory.createWithMapper(
+            collection,
+            messageMapper
+          );
+        }
+      : undefined;
 
     return new StreamingCacheableDataSource<Message>({
       resourceCollection,

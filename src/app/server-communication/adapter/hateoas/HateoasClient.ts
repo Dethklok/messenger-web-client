@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HateoasFindParams } from './HateoasFindParams';
 import { HateoasFindResponse } from './HateoasFindResponse';
 import { HateoasResourceCollection } from './HateoasResourceCollection';
@@ -33,6 +33,13 @@ export class HateoasClient {
       );
   }
 
+  save<TResource, TBody = unknown>(
+    resourceName: string,
+    body: TBody
+  ): Observable<TResource> {
+    return this.http.post<TResource>(this.getResourceUrl(resourceName), body);
+  }
+
   private createFindAllParams<T extends object>({
     page,
     sort,
@@ -47,8 +54,12 @@ export class HateoasClient {
     return params;
   }
 
+  private getResourceUrl(resourceName: string): string {
+    return `${this.serverApiUri}/${resourceName}`;
+  }
+
   private createFindAllUrl<T>(resourceName: string, search?: Search<T>) {
-    const url = `${this.serverApiUri}/${resourceName}`;
+    const url = this.getResourceUrl(resourceName);
 
     if (search) {
       return `${url}/search/${search.rel}`;

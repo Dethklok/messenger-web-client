@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MessageSocketAdapter } from 'app/chat/adapter/MessageSocketAdapter';
 import { GetMessageStreamOutputPort } from 'app/chat/port/out/GetMessageStreamOutputPort';
 import { ServerCommunicationModule } from 'app/server-communication';
 import { UiKitModule } from 'app/uikit/ui-kit.module';
 import { FindLatestMessagesAdapter } from './adapter/FindLatestMessagesAdapter';
-import { MessageSocketAdapter } from 'app/chat/adapter/MessageSocketAdapter';
 import { PrimaryChatComponent } from './components/primary-chat/primary-chat.component';
 import { CreateMessageCacheableDataSourceInteractor } from './interactor/CreateMessageCacheableDataSourceInteractor';
 import { SendMessageInteractor } from './interactor/SendMessageInteractor';
@@ -21,6 +22,7 @@ import { PublishToMessageSocketOutputPort } from './port/out/PublishToMessageSoc
     UiKitModule,
     ReactiveFormsModule,
     ServerCommunicationModule,
+    RouterModule.forChild([{ path: '', component: PrimaryChatComponent }]),
   ],
   providers: [
     MessageSocketAdapter,
@@ -56,6 +58,5 @@ import { PublishToMessageSocketOutputPort } from './port/out/PublishToMessageSoc
       ) => new SendMessageInteractor(publishToMessageSocketOutputPort),
     },
   ],
-  exports: [PrimaryChatComponent],
 })
 export class PrimaryChatModule {}

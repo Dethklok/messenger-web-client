@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpaceComponent } from './space.component';
+import { MenuComponent } from 'app/side-menu/component/menu/menu.component';
 
-describe('SpaceComponent', () => {
-  let component: SpaceComponent;
-  let fixture: ComponentFixture<SpaceComponent>;
+describe('MenuComponent', () => {
+  let component: MenuComponent;
+  let fixture: ComponentFixture<MenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SpaceComponent],
+      declarations: [MenuComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SpaceComponent);
+    fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

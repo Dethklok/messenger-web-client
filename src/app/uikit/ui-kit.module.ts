@@ -9,26 +9,21 @@ import { NzCommentModule } from 'ng-zorro-antd/comment';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzListModule } from 'ng-zorro-antd/list';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { UiScrollModule } from 'ngx-ui-scroll';
-import { AvatarComponent } from './components/avatar/avatar.component';
-import { FlexItemComponent } from './components/flex-item/flex-item.component';
-import { FlexComponent } from './components/flex/flex.component';
-import { InfiniteScrollableListComponent } from './components/infinite-scrollable-list/infinite-scrollable-list.component';
-import { MessageInputComponent } from './components/message-input/message-input.component';
-import { MessageComponent } from './components/message/message.component';
-import { SpaceComponent } from './components/space/space.component';
-import { TextareaComponent } from './components/textarea/textarea.component';
+import { FlexItemComponent } from './component/flex-item/flex-item.component';
+import { FlexComponent } from './component/flex/flex.component';
+import { InfiniteScrollableListComponent } from './component/infinite-scrollable-list/infinite-scrollable-list.component';
+import { MessageInputComponent } from './component/message-input/message-input.component';
+import { MessageComponent } from './component/message/message.component';
 
 @NgModule({
   declarations: [
-    AvatarComponent,
     MessageComponent,
     InfiniteScrollableListComponent,
-    SpaceComponent,
     FlexComponent,
     FlexItemComponent,
-    TextareaComponent,
     MessageInputComponent,
   ],
   imports: [
@@ -41,6 +36,7 @@ import { TextareaComponent } from './components/textarea/textarea.component';
     NzSpaceModule,
     NzIconModule.forChild([SendOutline]),
     NzInputModule,
+    NzModalModule,
     UiScrollModule,
     ReactiveFormsModule,
   ],
@@ -48,10 +44,8 @@ import { TextareaComponent } from './components/textarea/textarea.component';
     HttpClientModule,
     MessageComponent,
     InfiniteScrollableListComponent,
-    SpaceComponent,
     FlexComponent,
     FlexItemComponent,
-    TextareaComponent,
     MessageInputComponent,
   ],
 })

@@ -6,13 +6,13 @@ type Configuration<Value> = {
   newValueInputStream: Subscribable<Value>;
   newValueOutputStream: Stream<Value>;
   resourceCollection: PageableResourceCollection<Value>;
-  getNextCollection: () => Promise<PageableResourceCollection<Value>>;
+  getNextCollection?: () => Promise<PageableResourceCollection<Value>>;
 };
 
 export class StreamingCacheableDataSource<Value> {
   private cache = new Map<number, Value>();
   private resourceCollection: PageableResourceCollection<Value>;
-  private getNextCollection: () => Promise<
+  private getNextCollection?: () => Promise<
     PageableResourceCollection<Value> | undefined
   >;
   lastIndex = -1;
@@ -40,7 +40,7 @@ export class StreamingCacheableDataSource<Value> {
       return this.getFromCache(indexFrom, count);
     }
 
-    const nextResourceCollection = await this.getNextCollection();
+    const nextResourceCollection = await this.getNextCollection?.();
 
     if (!nextResourceCollection) {
       return [];
